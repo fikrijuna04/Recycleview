@@ -1,7 +1,12 @@
 package com.fukrujuna.recycleview
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import com.fukrujuna.recycleview.adapter.Adaptermadrid
 import com.fukrujuna.recycleview.databinding.ActivityMainBinding
 import com.fukrujuna.recycleview.model.pemain
@@ -21,7 +26,37 @@ class MainActivity : AppCompatActivity() {
         listpemain.add(pemain("zidane zidane",R.drawable.zidan,"pelatih","1.50 m","prancis","17 juni  1980"))
         binding.List.adapter = Adaptermadrid(this,listpemain,object : Adaptermadrid.onClickListener{
             override fun detailData(item: pemain?) {
-                TODO("Not yet implemented")
+                Dialog(this@MainActivity).apply {
+                    requestWindowFeature(Window.FEATURE_NO_TITLE)
+                    setCancelable(true)
+                    setContentView(R.layout.detail_data_pemain)
+
+                    val image = this.findViewById<ImageView>(R.id.image_pemain)
+                    val nama = this.findViewById<TextView>(R.id.txtNamaPemain)
+                    val posisi = this.findViewById<TextView>(R.id.txtposisi)
+                    val tinggi = this.findViewById<TextView>(R.id.txttinggi)
+                    val tempatlahir= this.findViewById<TextView>(R.id.txtTempatlahir)
+                    val tgllahir = this.findViewById<TextView>(R.id.txtTanggallahir)
+
+                    val btn = this.findViewById<Button>(R.id.btnclose)
+
+                    image.setImageResource(item?.foto ?:0)
+                    nama.text = "${item?.nama}"
+                    posisi.text = "${item?.posisi}"
+                    tinggi.text = "${item?.tinggi}"
+                    tempatlahir.text = "${item?.tempatlahir}"
+                    tgllahir.text = "${item?.tgllahir}"
+
+                    btn.setOnClickListener {
+                        this.dismiss()
+                    }
+
+                }.show()
+
+
+
+
+
             }
 
         })
