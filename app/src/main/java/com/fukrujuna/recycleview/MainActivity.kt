@@ -1,8 +1,12 @@
 package com.fukrujuna.recycleview
 
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.view.Menu
+import android.view.MenuItem
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
@@ -61,6 +65,26 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        setmode(item.itemId)
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun setmode(selectedMode: Int){
+        when (selectedMode){
+            R.id.myprofile->{
+                val intent = Intent(this,Profil::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
 }
